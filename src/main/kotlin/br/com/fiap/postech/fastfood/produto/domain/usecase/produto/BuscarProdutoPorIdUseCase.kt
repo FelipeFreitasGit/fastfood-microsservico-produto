@@ -10,10 +10,16 @@ class BuscarProdutoPorIdUseCase(
     private val produtoRepository: ProdutoRepository
 ) {
 
+    private val logger = org.slf4j.LoggerFactory.getLogger(this::class.java)
+
     fun executa(id: UUID): Produto {
+
+        logger.info("Buscando produto por id: $id")
+
         if(produtoRepository.existeProduto(id)) {
             return produtoRepository.buscaPorId(id)!!
         } else {
+            logger.error("Produto $id não encontrado")
             throw IllegalArgumentException("Produto $id não encontrado")
         }
     }

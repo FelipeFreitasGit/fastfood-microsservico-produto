@@ -7,7 +7,12 @@ import java.util.*
 class AtualizarProdutoUseCase(
     private val produtoRepository: ProdutoRepository
 ) {
+
+    private val logger = org.slf4j.LoggerFactory.getLogger(this::class.java)
+
     fun executa(id: UUID, produto: Produto): Produto {
+        logger.info("Atualizando produto ${id}")
+
         if(produtoRepository.existeProduto(id)) {
             return produtoRepository.atualizar(id, produto)
         } else {
