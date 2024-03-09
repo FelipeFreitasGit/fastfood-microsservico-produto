@@ -6,6 +6,7 @@ import br.com.fiap.postech.fastfood.produto.adapter.presenter.toProduto
 import br.com.fiap.postech.fastfood.produto.adapter.presenter.toProdutoResponse
 import br.com.fiap.postech.fastfood.produto.domain.usecase.produto.*
 import org.springframework.http.HttpStatus
+import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import java.util.*
 
@@ -34,13 +35,15 @@ class ProdutoController (
         removerProdutoUseCase.executa(id)
     }
 
-    @GetMapping("/categoria")
-    fun buscarPorCategoria(@RequestParam nome: String): List<ProdutoResponse>? {
-        return buscarProdutoPorCategoriaUseCase.executa(nome).map { it.toProdutoResponse() }
+    @GetMapping("/categoria", produces = ["application/json; charset=UTF-8"])
+    fun buscarPorCategoria(@RequestParam nome: String): ResponseEntity<List<ProdutoResponse>> {
+        val produtos = buscarProdutoPorCategoriaUseCase.executa(nome).map { it.toProdutoResponse() }
+        return ResponseEntity(produtos, HttpStatus.OK)
     }
 
-    @GetMapping("/{id}")
-    fun buscarPorPorId(@PathVariable id: UUID): ProdutoResponse? {
-        return buscarProdutoPorIdUseCase.executa(id).toProdutoResponse()
+    @GetMapping("/{id}", produces = ["application/json; charset=UTF-8"])
+    fun buscarPorPorId(@PathVariable id: UUID): ResponseEntity<ProdutoResponse> {
+        val produto = buscarProdutoPorIdUseCase.executa(id).toProdutoResponse()
+        return ResponseEntity(produto, HttpStatus.OK)
     }
 }

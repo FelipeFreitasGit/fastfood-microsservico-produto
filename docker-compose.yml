@@ -15,22 +15,10 @@ services:
     networks:
       - postgres-network
 
-#  pgadmin-compose:
-#    image: dpage/pgadmin4
-#    environment:
-#      PGADMIN_DEFAULT_EMAIL: "fast-food@gmail.com"
-#      PGADMIN_DEFAULT_PASSWORD: "PgAdmin2023!"
-#    ports:
-#      - "15432:80"
-#    depends_on:
-#      - postgres-compose
-#    networks:
-#      - postgres-network
-
   fast-food:
     build: .
     ports:
-      - "8094:8080"
+      - "8094:8084"
     environment:
       JAVA_OPTS: -Ddatabase_url=postgres-compose -Ddatabase_user=postgres -Ddatabase_password=Postgres2023
     networks:

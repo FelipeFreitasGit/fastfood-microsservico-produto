@@ -24,12 +24,20 @@ repositories {
     maven {
         url = uri("https://plugins.gradle.org/m2/")
     }
+    maven {
+        url = uri("https://repo.spring.io/snapshot")
+    }
+    maven {
+        url = uri("https://repo.spring.io/milestone")
+    }
 }
+
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.boot:spring-boot-starter-security")
 
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 
@@ -48,8 +56,8 @@ dependencies {
     testImplementation("org.mockito.kotlin:mockito-kotlin:3.2.0")
 
     testImplementation("io.cucumber:cucumber-java:6.10.4")
-    //testImplementation("io.cucumber:cucumber-junit:6.10.4")
     testImplementation("org.junit.vintage:junit-vintage-engine:5.9.3")
+    testImplementation("org.springframework.security:spring-security-test")
 
     testImplementation("io.rest-assured:spring-mock-mvc:5.3.0")
     testImplementation("io.rest-assured:json-schema-validator:5.3.1")
